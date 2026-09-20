@@ -1,41 +1,149 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#0b1020" />
-  <title>BOXAR — من فكرتك إلى روبوت يتحرك</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css" />
-</head>
-<body>
-  <header class="topbar">
-    <a class="brand" href="#home"><span class="brand-mark">B</span><span>BOXAR<small>من فكرتك إلى روبوت يتحرك</small></span></a>
-    <nav><a href="#builder">المصمم</a><a href="#simulation">المحاكاة</a><a href="#parts">مكتبة القطع</a></nav>
-    <div class="top-actions"><button class="icon-btn" id="themeToggle" aria-label="تبديل المظهر">☼</button><button class="ghost-btn" id="saveProject">حفظ المشروع</button><button class="primary-btn" id="loginBtn">دخول</button></div>
-  </header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#07111d" />
+    <title>BOXAR | مكتبة عربية</title>
+    <meta
+      name="description"
+      content="مكتبة BOXAR العربية: كتب تاريخية، دينية، رياضية، علمية وأدبية بجميع التخصصات."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="brand" aria-label="BOXAR">
+          <div class="brand-mark">B</div>
+          <div class="brand-text">
+            <span class="brand-name">BOXAR</span>
+            <small>مكتبة عربية</small>
+          </div>
+        </div>
 
-  <main id="home">
-    <section class="hero shell">
-      <div class="hero-copy"><div class="eyebrow"><span class="pulse"></span> مختبر الروبوتات الذكي</div><h1>حوّل فكرتك إلى<br><em>روبوت حقيقي.</em></h1><p>صمّم، حاكي، وصّل وبرمج روبوتك من وصف بسيط. BOXAR يرافقك من أول فكرة حتى أول حركة.</p><div class="hero-actions"><button class="primary-btn large" id="startBtn">ابدأ تصميم روبوت <span>←</span></button><button class="video-btn" id="tourBtn"><span>▶</span> شاهد كيف يعمل</button></div><div class="trust-row"><span>موثوق من صناع المستقبل</span><div class="avatar-stack"><i>م</i><i>س</i><i>ع</i><i>+</i></div><strong>+2,400 مشروع</strong></div></div>
-      <div class="hero-visual"><div class="orbit orbit-a"></div><div class="orbit orbit-b"></div><div class="robot-card"><div class="scan-line"></div><div class="robot-head"><span class="eye"></span><span class="eye"></span></div><div class="robot-body"><div class="screen">BOXAR<br><b>READY</b></div><span class="bolt">⚡</span></div><div class="robot-wheel wheel-left"></div><div class="robot-wheel wheel-right"></div><div class="robot-arm arm-left"></div><div class="robot-arm arm-right"></div></div><div class="float-chip chip-one">◈ <b>ESP32</b><small>متصل</small></div><div class="float-chip chip-two">◉ <b>3D Simulation</b><small>قيد التشغيل</small></div><div class="float-chip chip-three">✓ <b>Wiring safe</b><small>التوصيلات سليمة</small></div></div>
-    </section>
+        <nav class="main-nav" aria-label="التنقل الرئيسي">
+          <a href="#home">الرئيسية</a>
+          <a href="#categories">التصنيفات</a>
+          <a href="#books">الكتب</a>
+          <a href="#favorites">المفضلة</a>
+        </nav>
 
-    <section class="stats shell"><div><strong>01</strong><span>اكتب فكرتك</span></div><div><strong>02</strong><span>صمّم ثلاثي الأبعاد</span></div><div><strong>03</strong><span>اختبر قبل التصنيع</span></div><div><strong>04</strong><span>ابنِ وشغّل</span></div></section>
+        <button id="themeToggle" class="icon-btn" aria-label="تبديل المظهر">☼</button>
+      </header>
 
-    <section class="builder-section shell" id="builder"><div class="section-heading"><div><div class="eyebrow">AI ROBOT BUILDER</div><h2>ما الروبوت الذي تتخيله؟</h2><p>صف فكرتك بلغتك الطبيعية، وسيحولها BOXAR إلى مخطط قابل للتنفيذ.</p></div><span class="step-badge">الخطوة 01 <b>/ 04</b></span></div>
-      <div class="builder-grid"><div class="prompt-panel"><label for="robotPrompt">وصف الروبوت</label><textarea id="robotPrompt" placeholder="مثال: أبغى روبوت سيارة بأربع عجلات، يتجنب العوائق وأتحكم فيه من الجوال...">أبغى روبوت سيارة بأربع عجلات، يتجنب العوائق وأتحكم فيه من الجوال</textarea><div class="prompt-footer"><div class="suggestions"><button data-prompt="روبوت يتبع الخط ويتجنب العوائق">تتبع خط</button><button data-prompt="ذراع روبوتية بست درجات حركة تلتقط الأشياء">ذراع روبوتية</button><button data-prompt="روبوت حارس بكاميرا وإنذار">روبوت حارس</button></div><button class="generate-btn" id="generateBtn">حلّل الفكرة <span>✦</span></button></div></div>
-        <div class="result-panel"><div class="result-top"><span class="live-dot"></span><b>اقتراح BOXAR</b><span class="ai-label">AI GENERATED</span></div><div class="result-content"><div class="mini-robot"><div class="mini-screen">BOXAR</div><div class="mini-wheel a"></div><div class="mini-wheel b"></div></div><div><h3 id="projectName">سيارة BOXAR الذكية</h3><p id="projectSummary">روبوت متحرك بأربع عجلات مع تجنب العوائق وتحكم لاسلكي.</p><div class="tag-row"><span>🚗 متحرك</span><span>📡 Wi-Fi</span><span>🛡️ آمن</span></div></div></div><div class="result-bottom"><span><small>المتحكم المقترح</small><b id="controllerResult">ESP32 DevKit</b></span><span><small>مستوى المشروع</small><b>مبتدئ إلى متوسط</b></span><span><small>التكلفة التقديرية</small><b id="costResult">180 — 260 ر.س</b></span></div></div></div>
-    </section>
+      <main id="home">
+        <section class="hero shell">
+          <div class="hero-copy">
+            <div class="eyebrow">
+              <span class="pulse"></span>
+              مكتبة عربية حديثة
+            </div>
+            <h1>اكتشف المعرفة في كل تخصص.</h1>
+            <p>
+              كتب تاريخية، دينية، رياضية، علمية، أدبية، وثقافية، semuanya في منصة
+              عربية سهلة القراءة والوصول.
+            </p>
 
-    <section class="workspace shell" id="simulation"><div class="workspace-head"><div><div class="eyebrow">ROBOT WORKSPACE</div><h2>مختبرك في مكان واحد</h2></div><div class="workspace-tabs"><button class="active" data-tab="3d">◈ المحاكاة 3D</button><button data-tab="wiring">⌘ التوصيلات</button><button data-tab="code">&lt;/&gt; الكود</button></div></div><div class="workspace-grid"><div class="canvas-panel" id="canvasPanel"><div class="canvas-toolbar"><span class="status"><i></i> LIVE SIMULATION</span><span>◒ 70% بطارية</span><button id="resetView">⟳ إعادة العرض</button></div><div class="grid-floor"></div><div class="sim-car"><div class="sim-cabin"><span class="camera-eye"></span></div><div class="sim-base"></div><i class="sim-wheel w1"></i><i class="sim-wheel w2"></i><i class="sim-wheel w3"></i><i class="sim-wheel w4"></i></div><div class="canvas-label label-a">ESP32 <b>●</b></div><div class="canvas-label label-b">HC-SR04 <b>●</b></div><div class="axis"><span>Y</span><span>X</span><span>Z</span></div></div><div class="side-panel"><div class="side-title"><b id="sideTitle">جاهز للاختبار</b><span class="green-check">✓</span></div><p id="sideDescription">كل شيء مضبوط. شغّل المحاكاة لترى روبوتك يتحرك.</p><button class="run-btn" id="runSimulation">▶ تشغيل المحاكاة</button><div class="metric"><span>السرعة <b id="speedValue">0.0 m/s</b></span><div class="metric-bar"><i id="speedBar"></i></div></div><div class="metric"><span>استهلاك الطاقة <b>آمن</b></span><div class="metric-bar blue"><i style="width:32%"></i></div></div><div class="parts-preview"><b>القطع الأساسية <small>4 قطع</small></b><span>ESP32 DevKit <i>✓</i></span><span>TB6612FNG Motor Driver <i>✓</i></span><span>DC Gear Motor × 4 <i>✓</i></span><span>HC-SR04 Ultrasonic <i>✓</i></span></div></div></div></section>
+            <div class="hero-actions">
+              <button class="primary-btn">تصفح الكتب</button>
+              <button class="secondary-btn">عرض التصنيفات</button>
+            </div>
 
-    <section class="parts-section shell" id="parts"><div class="section-heading"><div><div class="eyebrow">COMPONENT LIBRARY</div><h2>كل قطعة لها قصة</h2><p>مكتبة قطع ذكية تفهم توافقها وتوصيلاتها.</p></div><button class="outline-btn" id="viewParts">استكشف المكتبة ←</button></div><div class="parts-grid"><article class="part-card"><div class="part-icon purple">⌁</div><h3>ESP32 DevKit</h3><p>العقل والاتصال اللاسلكي</p><span class="compat">متوافق مع 42 قطعة</span></article><article class="part-card"><div class="part-icon orange">◉</div><h3>Ultrasonic Sensor</h3><p>يرى المسافة والعوائق</p><span class="compat">متوافق مع 18 قطعة</span></article><article class="part-card"><div class="part-icon blue">⚙</div><h3>Servo Motor</h3><p>حركة دقيقة للمفاصل</p><span class="compat">متوافق مع 31 قطعة</span></article><article class="part-card add-card"><div>＋</div><h3>قطعة مخصصة</h3><p>صوّرها ودع BOXAR يتعرف عليها</p></article></div></section>
+            <div class="hero-stats">
+              <div>
+                <strong>500+</strong>
+                <span>كتاب</span>
+              </div>
+              <div>
+                <strong>12</strong>
+                <span>تصنيف</span>
+              </div>
+              <div>
+                <strong>24/7</strong>
+                <span>وصول</span>
+              </div>
+            </div>
+          </div>
 
-    <section class="cta shell"><div><div class="eyebrow">BUILD WITHOUT LIMITS</div><h2>فكرتك القادمة قد تغيّر العالم.</h2><p>ابدأ مجانًا، وابنِ أول روبوت لك خلال دقائق.</p></div><button class="primary-btn large" id="ctaBtn">أنشئ مشروعي الأول <span>←</span></button></section>
-  </main><footer><div class="brand"><span class="brand-mark">B</span><span>BOXAR<small>Engineering imagination</small></span></div><span>© 2026 BOXAR. صُنع للمبدعين العرب.</span><span>المختبر • المجتمع • الدعم</span></footer>
-  <div class="toast" id="toast">تم حفظ المشروع بنجاح ✓</div><div class="modal hidden" id="tourModal"><div class="modal-box"><button class="close" id="closeTour">×</button><div class="eyebrow">BOXAR IN 60 SECONDS</div><h2>من الفكرة إلى الحركة</h2><div class="tour-steps"><span>✦ اكتب الوصف</span><span>◈ شاهد المحاكاة</span><span>✓ ابنِ بثقة</span></div><button class="primary-btn" id="closeTourAction">فهمت، لنبدأ</button></div></div>
-  <script src="app.js"></script>
-</body></html>
+          <div class="hero-visual" aria-hidden="true">
+            <div class="book-stack book-one"></div>
+            <div class="book-stack book-two"></div>
+            <div class="book-stack book-three"></div>
+            <div class="orb orb-one"></div>
+            <div class="orb orb-two"></div>
+          </div>
+        </section>
+
+        <section class="search-shell shell">
+          <label class="search-bar" for="searchInput">
+            <span>🔎</span>
+            <input
+              id="searchInput"
+              type="search"
+              placeholder="ابحث عن كتاب أو مؤلف أو تصنيف"
+              aria-label="بحث الكتب"
+            />
+          </label>
+        </section>
+
+        <section class="categories shell" id="categories">
+          <div class="section-header">
+            <h2>التصنيفات</h2>
+            <a href="#books">عرض الكل</a>
+          </div>
+          <div id="categoryList" class="category-list" aria-label="قائمة التصنيفات"></div>
+        </section>
+
+        <section class="featured shell">
+          <div class="section-header">
+            <h2>الأكثر قراءة</h2>
+            <a href="#books">المزيد</a>
+          </div>
+
+          <div id="featuredBooks" class="featured-grid"></div>
+        </section>
+
+        <section class="books shell" id="books">
+          <div class="section-header">
+            <h2>كل الكتب</h2>
+            <span id="resultCount">0 كتاب</span>
+          </div>
+
+          <div id="booksGrid" class="books-grid" aria-live="polite"></div>
+        </section>
+      </main>
+
+      <aside class="favorites-panel shell" id="favorites">
+        <div class="section-header">
+          <h2>المفضلة</h2>
+          <span id="favoritesCount">0</span>
+        </div>
+        <div id="favoritesList" class="favorites-list"></div>
+      </aside>
+
+      <div id="bookModal" class="modal hidden" aria-hidden="true">
+        <div class="modal-backdrop" data-close="true"></div>
+        <div class="modal-card">
+          <button class="close-btn" data-close="true" aria-label="إغلاق">×</button>
+          <div class="modal-content" id="modalContent"></div>
+        </div>
+      </div>
+
+      <nav class="bottom-nav" aria-label="التنقل السفلي">
+        <button class="nav-item active" type="button">الرئيسية</button>
+        <button class="nav-item" type="button">التصنيفات</button>
+        <button class="nav-item" type="button">بحث</button>
+        <button class="nav-item" type="button">حسابي</button>
+      </nav>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
