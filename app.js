@@ -1,7 +1,233 @@
-const saved=JSON.parse(localStorage.getItem('noxar-state')||'{}');const state={saved:saved.saved||[],weak:saved.weak||[],points:saved.points||0,streak:saved.streak||0,filter:'all'};const $=s=>document.querySelector(s);const save=()=>localStorage.setItem('noxar-state',JSON.stringify(state));
-function update(){const n=state.saved.length;$('#progressText').textContent=`${n} / 50`;$('#progressBar').style.width=`${n*2}%`;$('#statWords').textContent=n;$('#statPoints').textContent=state.points;$('#statStreak').textContent=state.streak;$('#progressHint').textContent=n>=50?'أحسنت! فُتحت مرحلة الاختبار وكتابة الكود.':`احفظ الكلمات وافهم استخدامها. باقي لك ${50-n} كلمة.`}
-function renderWords(){const list=words.filter(w=>state.filter==='all'||state.filter==='known'&&state.saved.includes(w.id)||state.filter==='weak'&&state.weak.includes(w.id));$('#wordGrid').innerHTML=list.map(w=>{const yes=state.saved.includes(w.id);return `<article class="word-card ${yes?'saved':''}"><span class="num">${String(w.id).padStart(2,'0')}</span><h3>${w.word}</h3><p>${w.ar}</p><p>${w.use}</p><button data-id="${w.id}">${yes?'✓ محفوظة':'حفظ الكلمة'}</button></article>`}).join('');document.querySelectorAll('.word-card button').forEach(b=>b.onclick=()=>{const id=+b.dataset.id;if(state.saved.includes(id))state.saved=state.saved.filter(x=>x!==id);else{state.saved.push(id);state.points+=5}save();update();renderWords()})}
-function runPython(){const src=$('#codeInput').value;let out='';let hint='';const print=[...src.matchAll(/print\((?:f)?["'](.+?)["']\)/g)];if(print.length)out=print.map(m=>m[1].replace(/\\{.*?\\}/g,'')).join('\n');const name=src.match(/name\s*=\s*["']([^"']+)["']/);if(name)out=out.replace('{name}',name[1])||`أهلاً ${name[1]}`;if(/if .+[^:]$/.test(src.split('\n').find(x=>x.trim().startsWith('if'))||''))hint='تلميح: نسيت إضافة النقطتين : في نهاية سطر if.';else if(/print\([^)]*$/.test(src))hint='تلميح: أغلق القوس ) في أمر print.';else if(!out)out='تم التنفيذ. جرّب print("Hello") لرؤية نص واضح.';$('#codeOutput').textContent=out;$('#codeHint').textContent=hint||'تم الفحص بنجاح ✓';}
-function initBlocks(){const labels=['print','(','"Hello"',')'];const bank=$('#blockBank'),work=$('#blockWorkspace');[...labels].sort(()=>Math.random()-.5).forEach(x=>{const b=document.createElement('button');b.className='block';b.textContent=x;b.draggable=true;b.onclick=()=>{work.querySelector('span')?.remove();work.append(b)};b.ondragstart=e=>e.dataTransfer.setData('text/plain',x);bank.append(b)});work.ondragover=e=>e.preventDefault();work.ondrop=e=>{e.preventDefault();const x=e.dataTransfer.getData('text/plain');const b=[...bank.children].find(y=>y.textContent===x);if(b){work.querySelector('span')?.remove();work.append(b)}};$('#checkBlocks').onclick=()=>{const got=[...work.querySelectorAll('.block')].map(x=>x.textContent).join('');$('#blockFeedback').textContent=got==='print("Hello")'?'ممتاز! رتبت الكود بشكل صحيح ✅':'رتّب اللبنات بهذا الشكل: print("Hello")';$('#blockFeedback').style.color=got==='print("Hello")'?'var(--green)':'#d65a5a'}}
-function quiz(){const q=words[0];$('#quizQuestion').innerHTML=`ما معنى <b>${q.word}</b>؟`;const ans=[q.ar,'تكرار الكود','إنشاء ملف'].sort(()=>Math.random()-.5);$('#quizAnswers').innerHTML=ans.map(x=>`<button class="answer">${x}</button>`).join('');document.querySelectorAll('.answer').forEach(b=>b.onclick=()=>{const ok=b.textContent===q.ar;$('#quizFeedback').textContent=ok?'إجابة صحيحة ✅':'راجع بطاقة الكلمة وحاول مرة أخرى';$('#quizFeedback').style.color=ok?'var(--green)':'#d65a5a';if(ok){state.points+=10;save();update()}})}
-const modal=$('#authModal');$('#loginBtn').onclick=$('#startBtn').onclick=()=>modal.classList.remove('hidden');$('#closeModal').onclick=()=>modal.classList.add('hidden');$('#themeToggle').onclick=()=>{document.body.classList.toggle('dark');localStorage.setItem('noxar-theme',document.body.classList.contains('dark')?'dark':'light')};if(localStorage.getItem('noxar-theme')==='dark')document.body.classList.add('dark');$('#runCode').onclick=runPython;$('#sendCode').onclick=()=>{const email=$('#emailInput').value.trim();if(!email.includes('@'))return alert('اكتب بريدًا صحيحًا');const otp=String(Math.floor(100000+Math.random()*900000));sessionStorage.setItem('noxar-otp',otp);$('#emailStep').classList.add('hidden');$('#otpStep').classList.remove('hidden');$('#otpMessage').textContent=`رمز تجريبي للمعاينة: ${otp} — في النسخة الإنتاجية يرسل عبر مزود بريد.`};$('#verifyCode').onclick=()=>{if($('#otpInput').value!==sessionStorage.getItem('noxar-otp'))return alert('الرمز غير صحيح');$('#loginBtn').textContent='حسابي ✓';modal.classList.add('hidden');alert('تم الدخول بنجاح')};document.querySelectorAll('.filter').forEach(b=>b.onclick=()=>{document.querySelectorAll('.filter').forEach(x=>x.classList.remove('active'));b.classList.add('active');state.filter=b.dataset.filter;renderWords()});$('#startBtn').onclick=()=>document.querySelector('#dictionary').scrollIntoView({behavior:'smooth'});initBlocks();update();renderWords();quiz();
+const STORAGE_KEY = 'noxar-state';
+const state = {
+  saved: JSON.parse(localStorage.getItem(STORAGE_KEY) || '{"saved":[],"weak":[],"points":0,"streak":0}').saved || [],
+  weak: JSON.parse(localStorage.getItem(STORAGE_KEY) || '{"saved":[],"weak":[],"points":0,"streak":0}').weak || [],
+  points: JSON.parse(localStorage.getItem(STORAGE_KEY) || '{"saved":[],"weak":[],"points":0,"streak":0}').points || 0,
+  streak: JSON.parse(localStorage.getItem(STORAGE_KEY) || '{"saved":[],"weak":[],"points":0,"streak":0}').streak || 0,
+  filter: 'all'
+};
+
+const $ = (sel) => document.querySelector(sel);
+const saveState = () => localStorage.setItem(STORAGE_KEY, JSON.stringify({ saved: state.saved, weak: state.weak, points: state.points, streak: state.streak }));
+
+function updateProgress() {
+  const done = state.saved.length;
+  const total = words.length;
+  $('#progressText').textContent = `${done} / ${total}`;
+  $('#progressBar').style.width = `${Math.min((done / total) * 100, 100)}%`;
+  $('#statWords').textContent = done;
+  $('#statPoints').textContent = state.points;
+  $('#statStreak').textContent = state.streak;
+  $('#progressHint').textContent = done >= total
+    ? 'أحسنت! لقد اكتملت كل الكلمات الرئيسية، الآن جاهز للمرحلة التالية.'
+    : done === 0
+      ? 'احفظ الكلمات وافهم استخدامها.'
+      : `ما زال لديك ${total - done} كلمة لتتقنها.`;
+}
+
+function renderWords() {
+  const filtered = words.filter((word) => {
+    if (state.filter === 'known') return state.saved.includes(word.id);
+    if (state.filter === 'weak') return state.weak.includes(word.id);
+    return true;
+  });
+
+  $('#wordGrid').innerHTML = filtered.map((word) => {
+    const saved = state.saved.includes(word.id);
+    return `
+      <article class="word-card ${saved ? 'saved' : ''}">
+        <span class="num">${String(word.id).padStart(2, '0')}</span>
+        <h3>${word.word}</h3>
+        <p>${word.ar}</p>
+        <p>${word.use}</p>
+        <button data-id="${word.id}">${saved ? '✓ محفوظة' : 'حفظ الكلمة'}</button>
+      </article>
+    `;
+  }).join('');
+
+  document.querySelectorAll('.word-card button').forEach((button) => {
+    button.addEventListener('click', () => {
+      const id = Number(button.dataset.id);
+      if (state.saved.includes(id)) {
+        state.saved = state.saved.filter((value) => value !== id);
+      } else {
+        state.saved.push(id);
+        state.points += 5;
+      }
+      saveState();
+      updateProgress();
+      renderWords();
+    });
+  });
+}
+
+function runCode() {
+  const code = $('#codeInput').value;
+  let output = 'تم التنفيذ بنجاح ✓';
+  let hint = '';
+
+  const nameMatch = code.match(/name\s*=\s*["']([^"']+)["']/);
+  if (nameMatch) {
+    output = `أهلاً ${nameMatch[1]}!`;
+  }
+
+  if (code.includes('print(') && !code.includes(')')) {
+    hint = 'تلميح: أغلق القوس ) في أمر print.';
+  }
+
+  if (/if .*[^:]$/.test(code)) {
+    hint = 'تلميح: نسيت إضافة النقطتين : في نهاية سطر if.';
+  }
+
+  if (!nameMatch && !code.includes('print')) {
+    output = 'تم التنفيذ. جرّب print("Hello") لرؤية نص واضح.';
+  }
+
+  $('#codeOutput').textContent = output;
+  $('#codeHint').textContent = hint || 'تم الفحص بنجاح ✓';
+}
+
+function initBlocks() {
+  const bank = $('#blockBank');
+  const workspace = $('#blockWorkspace');
+  const sequence = ['print', '(', '"Hello"', ')'];
+
+  sequence.forEach((value) => {
+    const block = document.createElement('button');
+    block.className = 'block';
+    block.textContent = value;
+    block.draggable = true;
+    block.ondragstart = (event) => event.dataTransfer.setData('text/plain', value);
+    block.onclick = () => {
+      workspace.querySelector('span')?.remove();
+      const clone = block.cloneNode(true);
+      clone.classList.add('block');
+      workspace.appendChild(clone);
+    };
+    bank.appendChild(block);
+  });
+
+  workspace.addEventListener('dragover', (event) => event.preventDefault());
+  workspace.addEventListener('drop', (event) => {
+    event.preventDefault();
+    const value = event.dataTransfer.getData('text/plain');
+    workspace.querySelector('span')?.remove();
+    const clone = document.createElement('button');
+    clone.className = 'block';
+    clone.textContent = value;
+    workspace.appendChild(clone);
+  });
+
+  $('#checkBlocks').addEventListener('click', () => {
+    const response = [...workspace.querySelectorAll('.block')].map((item) => item.textContent).join('');
+    const success = response === 'print("Hello")';
+    $('#blockFeedback').textContent = success ? 'ممتاز! رتبت الكود بشكل صحيح ✅' : 'رتّب اللبنات بهذا الشكل: print("Hello")';
+    $('#blockFeedback').style.color = success ? 'var(--green)' : 'var(--danger)';
+  });
+}
+
+function renderQuiz() {
+  const current = words[Math.floor(Math.random() * words.length)];
+  $('#quizQuestion').innerHTML = `ما معنى <b>${current.word}</b>؟`;
+  const options = [current.ar, 'تكرار الكود', 'إنشاء ملف', 'إدخال كلمة']
+    .sort(() => Math.random() - 0.5)
+    .slice(0, 4);
+
+  $('#quizAnswers').innerHTML = options.map((option) => `<button class="answer">${option}</button>`).join('');
+
+  document.querySelectorAll('.answer').forEach((button) => {
+    button.addEventListener('click', () => {
+      const correct = button.textContent === current.ar;
+      $('#quizFeedback').textContent = correct ? 'إجابة صحيحة ✅' : 'راجع الكلمة في القاموس وجرّب مرة أخرى.';
+      $('#quizFeedback').style.color = correct ? 'var(--green)' : 'var(--danger)';
+      if (correct) {
+        state.points += 10;
+        saveState();
+        updateProgress();
+      } else {
+        state.weak = [...new Set([...state.weak, current.id])];
+        saveState();
+        renderWords();
+      }
+      setTimeout(renderQuiz, 1200);
+    });
+  });
+}
+
+function openAuth() {
+  $('#authModal').classList.remove('hidden');
+}
+
+function closeAuth() {
+  $('#authModal').classList.add('hidden');
+}
+
+function sendOtp() {
+  const email = $('#emailInput').value.trim();
+  if (!email.includes('@')) {
+    alert('أدخل بريدًا صحيحًا أولًا.');
+    return;
+  }
+
+  const otp = String(Math.floor(100000 + Math.random() * 900000));
+  sessionStorage.setItem('noxar-otp', otp);
+  $('#emailStep').classList.add('hidden');
+  $('#otpStep').classList.remove('hidden');
+  $('#otpMessage').textContent = `رمز تجريبي: ${otp} (يعرض داخل التطبيق فقط في هذه النسخة)}`;
+}
+
+function verifyOtp() {
+  const otp = $('#otpInput').value.trim();
+  const expected = sessionStorage.getItem('noxar-otp');
+
+  if (otp !== expected) {
+    $('#otpMessage').textContent = 'الرمز غير صحيح، تأكد من الرقم المرسل.';
+    $('#otpMessage').style.color = 'var(--danger)';
+    return;
+  }
+
+  $('#loginBtn').textContent = 'حسابي ✓';
+  closeAuth();
+  alert('تم الدخول بنجاح ✅');
+}
+
+function bindEvents() {
+  $('#themeToggle').addEventListener('click', () => {
+    document.body.classList.toggle('dark');
+    localStorage.setItem('noxar-theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+  });
+
+  $('#loginBtn').addEventListener('click', openAuth);
+  $('#closeModal').addEventListener('click', closeAuth);
+  $('#sendCode').addEventListener('click', sendOtp);
+  $('#verifyCode').addEventListener('click', verifyOtp);
+  $('#runCode').addEventListener('click', runCode);
+  $('#startBtn').addEventListener('click', () => document.getElementById('dictionary').scrollIntoView({ behavior: 'smooth' }));
+
+  document.querySelectorAll('.filter').forEach((button) => {
+    button.addEventListener('click', () => {
+      document.querySelectorAll('.filter').forEach((item) => item.classList.remove('active'));
+      button.classList.add('active');
+      state.filter = button.dataset.filter;
+      renderWords();
+    });
+  });
+
+  $('#authModal').addEventListener('click', (event) => {
+    if (event.target === $('#authModal')) closeAuth();
+  });
+}
+
+function init() {
+  if (localStorage.getItem('noxar-theme') === 'dark') {
+    document.body.classList.add('dark');
+  }
+
+  bindEvents();
+  initBlocks();
+  updateProgress();
+  renderWords();
+  renderQuiz();
+}
+
+init();
