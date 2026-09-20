@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="BOXAR — تعلّم البرمجة من الصفر بطريقة بسيطة وتفاعلية." />
+  <title>BOXAR | تعلّم البرمجة</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="noise"></div>
+  <header class="topbar">
+    <a class="brand" href="#home" aria-label="BOXAR الرئيسية"><span class="brand-mark">B</span><span>BOXAR</span></a>
+    <nav class="nav-links" aria-label="التنقل الرئيسي">
+      <a class="active" href="#home">الرئيسية</a>
+      <a href="#paths">المسارات</a>
+      <a href="#practice">التدريب</a>
+    </nav>
+    <button class="icon-button" id="themeToggle" aria-label="تبديل الوضع">☼</button>
+  </header>
+
+  <main id="home">
+    <section class="hero container">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="pulse"></span> تعلّم. جرّب. ابنِ.</p>
+        <h1>اكتب أول سطر<br /><span>كود</span> في حياتك.</h1>
+        <p class="hero-text">رحلة برمجية عربية مصممة لك من الصفر. دروس قصيرة، تمارين حقيقية، ونتيجة تشوفها بنفسك.</p>
+        <div class="hero-actions"><a class="button primary" href="#paths">ابدأ رحلتك <span>←</span></a><a class="button ghost" href="#practice">جرّب المحرر</a></div>
+        <div class="social-proof"><div class="avatars"><i>م</i><i>س</i><i>ن</i></div><span>انضم إلى مجتمع المبرمجين الجدد</span></div>
+      </div>
+      <div class="code-card" aria-label="مثال برمجي تفاعلي">
+        <div class="window-bar"><span></span><span></span><span></span><b>hello_world.py</b></div>
+        <pre><code><em>01</em> <strong>def</strong> welcome(name):
+<em>02</em>     message = <mark>f"أهلًا {name}!"</mark>
+<em>03</em>     <strong>return</strong> message
+
+<em>05</em> <strong>print</strong>(welcome(<mark>"مستكشف"</mark>))</code></pre>
+        <div class="terminal-output"><span>›</span> أهلًا مستكشف!<small>تم التنفيذ بنجاح</small></div>
+      </div>
+    </section>
+
+    <section class="stats container"><div><strong>+12</strong><span>درس تفاعلي</span></div><div><strong>03</strong><span>مسارات أساسية</span></div><div><strong>∞</strong><span>محاولات مجانية</span></div></section>
+
+    <section class="section container" id="paths">
+      <div class="section-heading"><div><p class="eyebrow">مسارات BOXAR</p><h2>اختر مسارك الأول</h2></div><a class="text-link" href="#paths">عرض الكل ←</a></div>
+      <div class="path-grid">
+        <article class="path-card featured"><div class="card-icon python">⌘</div><span class="level">المستوى 01 · للمبتدئين</span><h3>أساسيات Python</h3><p>تعلّم المنطق البرمجي واكتب برامجك الأولى بلغة بايثون.</p><div class="progress-row"><span>0% مكتمل</span><div class="progress"><i style="width: 0%"></i></div></div><button class="card-link start-path">ابدأ المسار <span>←</span></button></article>
+        <article class="path-card"><div class="card-icon web">&lt;/&gt;</div><span class="level">المستوى 01 · إبداعي</span><h3>صمّم موقعك الأول</h3><p>حوّل أفكارك إلى صفحات جميلة باستخدام HTML و CSS.</p><div class="progress-row"><span>قريبًا</span><div class="progress muted"></div></div><button class="card-link disabled">غير متاح بعد</button></article>
+        <article class="path-card"><div class="card-icon js">✦</div><span class="level">المستوى 02 · تفاعلي</span><h3>JavaScript للواجهات</h3><p>أضف الحركة والتفاعل لمواقعك واصنع تجارب ممتعة.</p><div class="progress-row"><span>قريبًا</span><div class="progress muted"></div></div><button class="card-link disabled">غير متاح بعد</button></article>
+      </div>
+    </section>
+
+    <section class="practice-section container" id="practice"><div class="practice-copy"><p class="eyebrow">المختبر السريع</p><h2>لا تتفرّج فقط.<br /><span>اكتب الكود.</span></h2><p>الطريقة الأسرع للتعلم هي أن تكتب بيدك. عدّل السطر التالي وشاهد النتيجة فورًا.</p></div><div class="mini-editor"><div class="editor-title"><span>تجربتك الأولى</span><button id="runCode">تشغيل ▶</button></div><textarea id="codeInput" spellcheck="false">name = "BOXAR"
+print(f"مرحبًا بك في {name}!")</textarea><div class="editor-result" id="codeResult">اضغط تشغيل لترى النتيجة هنا...</div></div></section>
+  </main>
+  <footer class="footer container"><a class="brand" href="#home"><span class="brand-mark">B</span><span>BOXAR</span></a><span>صُنع ليبدأ كل شخص.</span><span>© 2026 BOXAR</span></footer>
+  <script src="app.js"></script>
+</body>
+</html>
