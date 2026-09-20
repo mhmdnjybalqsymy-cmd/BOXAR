@@ -1,1 +1,217 @@
-:root{--ink:#171820;--muted:#777986;--paper:#f6f6f1;--card:#fff;--line:#e5e5df;--lime:#c9f36a;--purple:#6555f5;--green:#49a66a;--shadow:0 20px 55px #27234a14}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:Cairo,sans-serif}body.dark{--ink:#f7f7f2;--muted:#aaabb4;--paper:#15161d;--card:#21222b;--line:#383943;--shadow:0 20px 55px #0005}.container{width:min(1100px,calc(100% - 40px));margin:auto}.topbar{height:76px;display:flex;align-items:center;gap:28px;width:min(1180px,calc(100% - 40px));margin:auto}.brand{font:700 22px 'Space Grotesk';color:var(--ink);text-decoration:none;margin-left:auto;letter-spacing:1px}.brand b{display:inline-grid;place-items:center;background:var(--ink);color:var(--lime);border-radius:8px;width:30px;height:30px;margin-left:8px}.topbar nav{display:flex;gap:26px}.topbar nav a{color:var(--muted);font-weight:700;font-size:13px;text-decoration:none}.topbar nav a:hover{color:var(--purple)}button{font-family:inherit;cursor:pointer}.profile,.theme{background:var(--card);border:1px solid var(--line);color:var(--ink);border-radius:8px;padding:8px 13px;font-size:12px;font-weight:700}.theme{border-radius:50%;padding:7px 10px;font-size:17px}.welcome{display:grid;grid-template-columns:1fr 260px;gap:60px;align-items:center;padding:72px 0 65px}.eyebrow{color:var(--purple);font-size:11px;font-weight:800;letter-spacing:1px;margin:0 0 14px}.welcome h1{font-size:clamp(43px,6vw,70px);line-height:1.1;letter-spacing:-2px;margin:0 0 20px}.welcome h1 span,.quiz h2{color:var(--purple)}.welcome p:not(.eyebrow){color:var(--muted);max-width:490px;line-height:2;font-size:15px}.primary{border:0;background:var(--ink);color:var(--paper);border-radius:9px;padding:13px 20px;font-weight:800;margin-top:18px}.primary span{color:var(--lime);margin-right:10px}.streak{background:var(--ink);color:var(--paper);border-radius:18px;padding:28px;text-align:center;box-shadow:var(--shadow)}.flame{display:block;color:var(--lime);font-size:31px}.streak strong{display:block;font:700 55px 'Space Grotesk'}.streak small{color:#aaa;font-size:12px}.week{display:flex;gap:7px;justify-content:center;margin-top:22px}.week i{width:18px;height:18px;border:1px solid #777;border-radius:50%}.week i.active{background:var(--lime);border-color:var(--lime)}.progress-panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:28px 32px;box-shadow:var(--shadow)}.panel-head{display:flex;align-items:end;justify-content:space-between}.panel-head h2,.section h2{margin:0;font-size:25px}.panel-head>strong{font:700 25px 'Space Grotesk';color:var(--purple)}.bar{height:9px;background:#ededed;border-radius:8px;margin:22px 0 12px;overflow:hidden}.bar i{display:block;background:var(--purple);height:100%;width:0;transition:.4s}.muted{color:var(--muted);font-size:12px}.phase-list{display:flex;gap:28px;color:var(--muted);font-size:12px;margin-top:21px}.phase-list .done{color:var(--green);font-weight:800}.section{padding:88px 0 65px}.section-head{display:flex;justify-content:space-between;align-items:end;margin-bottom:27px}.section h2 small{color:var(--muted);font:400 12px Cairo;margin-right:8px}.filters{display:flex;gap:6px}.filter{border:1px solid var(--line);background:var(--card);color:var(--muted);border-radius:20px;padding:7px 14px;font-size:11px}.filter.active{background:var(--ink);color:var(--paper)}.word-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}.word-card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;min-height:135px;position:relative;transition:.2s}.word-card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}.word-card.known{border-color:var(--green)}.word-card .number{color:var(--muted);font:11px 'Space Grotesk'}.word-card h3{font:700 18px 'Space Grotesk';margin:10px 0 2px;direction:ltr;text-align:right}.word-card p{color:var(--muted);font-size:12px;margin:0}.word-card .meaning{font-size:11px;line-height:1.6}.remember{position:absolute;bottom:12px;left:12px;color:var(--purple);background:none;border:0;font-size:11px}.known .remember{color:var(--green)}.quiz{display:grid;grid-template-columns:.8fr 1.2fr;gap:50px;align-items:center;background:var(--ink);color:var(--paper);border-radius:18px;padding:45px 50px;margin-bottom:75px}.quiz h2{font-size:30px;margin:0}.quiz p:not(.eyebrow){color:#aaa;line-height:1.8;font-size:13px}.quiz-box{border:1px solid #444652;border-radius:12px;padding:22px}.quiz-box>span{font-size:15px}.quiz-box b{font-family:'Space Grotesk';color:var(--lime)}#quizAnswers{display:flex;gap:8px;margin-top:20px;flex-wrap:wrap}.answer{background:transparent;border:1px solid #555866;color:var(--paper);border-radius:7px;padding:8px 13px;font-size:12px}.answer:hover{border-color:var(--lime)}#quizFeedback{margin:13px 0 0}.footer{display:flex;justify-content:space-between;align-items:center;padding:25px 0 38px;color:var(--muted);font-size:11px}.modal{position:fixed;inset:0;background:#10101aaa;display:grid;place-items:center;z-index:5;padding:20px}.hidden{display:none}.modal-card{position:relative;background:var(--card);border-radius:16px;padding:30px;max-width:390px;width:100%;box-shadow:var(--shadow)}.modal-card h2{margin:0}.modal-card input{width:100%;padding:12px;margin-top:12px;border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);font-family:inherit}.close{position:absolute;left:18px;top:14px;background:none;border:0;color:var(--muted);font-size:25px}.full{width:100%;margin-top:15px}@media(max-width:800px){.topbar nav{display:none}.welcome,.quiz{grid-template-columns:1fr;gap:30px;padding:45px 0}.streak{max-width:270px}.word-grid{grid-template-columns:repeat(2,1fr)}.progress-panel{padding:22px 18px}.phase-list{gap:10px;flex-wrap:wrap}.quiz{padding:30px 22px}.footer{flex-wrap:wrap;gap:14px}}
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="NOXAR — تعلم بايثون بالعربية من الصفر مع كلمات، اختبارات، ومشروع عملي." />
+    <title>NOXAR | BOXAR</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar container">
+      <div class="brand-wrap">
+        <div class="brand-mark">N</div>
+        <div>
+          <div class="brand-title">NOXAR</div>
+          <small>BOXAR academy</small>
+        </div>
+      </div>
+
+      <nav class="main-nav">
+        <a href="#dashboard">لوحتي</a>
+        <a href="#dictionary">القاموس</a>
+        <a href="#practice">التدريب</a>
+        <a href="#projects">المشاريع</a>
+      </nav>
+
+      <div class="top-actions">
+        <button id="themeToggle" class="icon-button" aria-label="تبديل الوضع">☼</button>
+        <button id="loginBtn" class="login-btn">تسجيل الدخول</button>
+      </div>
+    </header>
+
+    <main id="dashboard" class="container">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">تعلم بالمنطق، لا بالتخمين</p>
+          <h1>تعلم بايثون<br /><span>بالعربية</span></h1>
+          <p class="subtitle">
+            تعلم الكلمات الأساسية، فهم معناها، ومتابعة التقدم خطوة بخطوة. كل كلمة تُفهم، كل تمرين يُطبّق، وكل مشروع يثبت أنك تتقدم.
+          </p>
+          <div class="hero-actions">
+            <button id="startLearning" class="primary-btn">ابدأ التعلم</button>
+            <button id="openLogin" class="secondary-btn">تسجيل الدخول</button>
+          </div>
+          <div class="mini-proof">
+            <div class="avatars">
+              <span>A</span>
+              <span>M</span>
+              <span>R</span>
+            </div>
+            <span>أكثر من 1,200 متعلم يطبقون هذا المسار</span>
+          </div>
+        </div>
+
+        <div class="hero-panel">
+          <div class="panel-head">
+            <span class="chip">مرحلة 1</span>
+            <span class="status-live">جديد</span>
+          </div>
+
+          <div class="sample-code">
+            <div class="window-bar">
+              <span class="red"></span>
+              <span class="yellow"></span>
+              <span class="green"></span>
+              <small>hello.py</small>
+            </div>
+            <pre><code>print("مرحبا بالعالم")
+name = "NOXAR"
+print(f"أهلا {name}")</code></pre>
+          </div>
+
+          <div class="panel-stats">
+            <div>
+              <strong id="statWords">0</strong>
+              <span>كلمة محفوظة</span>
+            </div>
+            <div>
+              <strong id="statLevel">1</strong>
+              <span>مرحلة</span>
+            </div>
+            <div>
+              <strong id="statStreak">0</strong>
+              <span>أيام متتالية</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="progress-card">
+        <div class="progress-header">
+          <div>
+            <p class="eyebrow small">المسار البسيط</p>
+            <h2>50 كلمة بايثون الأساسية</h2>
+          </div>
+          <strong id="progressText">0 / 50</strong>
+        </div>
+
+        <div class="progress-bar">
+          <span id="progressBar"></span>
+        </div>
+
+        <p id="progressHint" class="progress-hint">
+          ابدأ بالكلمة الأولى، وقم بحفظ كل كلمة وفهم مثال الاستخدام.
+        </p>
+
+        <div class="phase-pills">
+          <span class="done">الكلمات</span>
+          <span>الاختبار</span>
+          <span>كتابة الكود</span>
+          <span>المشاريع</span>
+        </div>
+      </section>
+
+      <section id="dictionary" class="section-block">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow small">المفردات</p>
+            <h2>كلمات الأسبوع</h2>
+          </div>
+
+          <div class="filters">
+            <button class="filter-btn active" data-filter="all">الكل</button>
+            <button class="filter-btn" data-filter="known">المحفوظة</button>
+            <button class="filter-btn" data-filter="new">الجديدة</button>
+          </div>
+        </div>
+
+        <div id="wordGrid" class="word-grid"></div>
+      </section>
+
+      <section id="practice" class="practice-section">
+        <div class="practice-copy">
+          <p class="eyebrow small">اختبر نفسك</p>
+          <h2>هل تحتاج إلى مراجعة سريعة؟</h2>
+          <p>
+            بعد حفظ الكلمات، جرب السؤال التالي. إذا أجبت صحيحاً، فأنت جاهز للانتقال إلى مرحلة كتابة الكود.
+          </p>
+        </div>
+
+        <div class="quiz-box">
+          <div id="quizQuestion" class="quiz-question">ما معنى كلمة <strong>print</strong>؟</div>
+          <div id="quizAnswers" class="quiz-answers"></div>
+          <p id="quizFeedback" class="quiz-feedback"></p>
+        </div>
+      </section>
+
+      <section id="projects" class="section-block projects-block">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow small">تطبيق عملي</p>
+            <h2>المراحل القادمة</h2>
+          </div>
+        </div>
+
+        <div class="project-grid">
+          <article class="project-card">
+            <span class="project-tag">مهمة 1</span>
+            <h3>طباعة رسالة</h3>
+            <p>اكتب برنامج يطبع اسمك في السطر الأول.</p>
+          </article>
+
+          <article class="project-card">
+            <span class="project-tag">مهمة 2</span>
+            <h3>حساب بسيط</h3>
+            <p>اجمع عددين، ثم اطبع النتيجة.</p>
+          </article>
+
+          <article class="project-card">
+            <span class="project-tag">مهمة 3</span>
+            <h3>قائمة مهام</h3>
+            <p>أنشئ قائمة بالمهام ثم أضف عنصر جديد.</p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer container">
+      <div class="brand-wrap">
+        <div class="brand-mark">N</div>
+        <div>
+          <div class="brand-title">NOXAR</div>
+        </div>
+      </div>
+      <span>تعلم البرمجة بالعربية، خطوة بخطوة.</span>
+      <span>© 2026</span>
+    </footer>
+
+    <div id="authModal" class="modal hidden">
+      <div class="modal-card">
+        <button id="closeModal" class="close-btn" aria-label="إغلاق">×</button>
+
+        <p class="eyebrow small">تسجيل الدخول</p>
+        <h3>احفظ تقدمك</h3>
+
+        <div id="authStep1" class="auth-step">
+          <label for="emailInput">البريد الإلكتروني</label>
+          <input id="emailInput" type="email" placeholder="noxarh@gmail.com" />
+          <button id="sendCodeBtn" class="primary-btn full">إرسال رمز التحقق</button>
+        </div>
+
+        <div id="authStep2" class="auth-step hidden">
+          <p id="otpMessage" class="otp-message">تم إرسال الرمز إلى بريدك.</p>
+          <label for="otpInput">رمز التحقق (6 أرقام)</label>
+          <input id="otpInput" type="text" maxlength="6" placeholder="123456" />
+          <button id="verifyCodeBtn" class="primary-btn full">تأكيد الدخول</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
