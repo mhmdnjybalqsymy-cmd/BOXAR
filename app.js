@@ -1,26 +1,8 @@
-const themeToggle = document.querySelector('#themeToggle');
-const codeInput = document.querySelector('#codeInput');
-const codeResult = document.querySelector('#codeResult');
-const runCode = document.querySelector('#runCode');
-
-// حفظ تفضيل المستخدم للوضع الليلي
-if (localStorage.getItem('boxar-theme') === 'dark') document.body.classList.add('dark');
-themeToggle.addEventListener('click', () => {
-  document.body.classList.toggle('dark');
-  localStorage.setItem('boxar-theme', document.body.classList.contains('dark') ? 'dark' : 'light');
-});
-
-// محاكاة بسيطة لمحرر BOXAR الآمن: نعرض النص المتوقع بدل تنفيذ JavaScript عشوائيًا.
-runCode.addEventListener('click', () => {
-  const source = codeInput.value;
-  const match = source.match(/name\s*=\s*["']([^"']+)["']/);
-  const name = match ? match[1] : 'BOXAR';
-  codeResult.textContent = `مرحبًا بك في ${name}!\nتم التنفيذ بنجاح ✓`;
-});
-
-document.querySelectorAll('.start-path').forEach((button) => {
-  button.addEventListener('click', () => {
-    document.querySelector('#practice').scrollIntoView({ behavior: 'smooth' });
-    codeInput.focus();
-  });
-});
+const KEY='boxar-progress';const saved=JSON.parse(localStorage.getItem(KEY)||'{}');let progress=saved.progress||[];let user=saved.user||null;const $=s=>document.querySelector(s);const grid=$('#wordGrid');
+function save(){localStorage.setItem(KEY,JSON.stringify({progress,user,streak:saved.streak||0}));}
+function render(filter='all'){grid.innerHTML='';words.filter(w=>filter==='all'||(filter==='known'?progress.includes(w.id):!progress.includes(w.id))).forEach(w=>{const card=document.createElement('article');card.className='word-card '+(progress.includes(w.id)?'known':'');card.innerHTML=`<span class="number">${String(w.id).padStart(2,'0')}</span><h3>${w.word}</h3><p>${w.ar}</p><p class="meaning">${w.use}</p><button class="remember">${progress.includes(w.id)?'✓ محفوظة':'حفظ الكلمة'}</button>`;card.querySelector('button').onclick=()=>{if(progress.includes(w.id))progress=progress.filter(id=>id!==w.id);else progress.push(w.id);save();render(filter);update();};grid.append(card)});update()}
+function update(){const n=progress.length;$('#progressText').textContent=`${n} / 50`;$('#progressBar').style.width=`${n*2}%`;$('#progressHint').textContent=n===50?'أحسنت! فُتحت لك مرحلة الاختبار وكتابة الكود.':'احفظ الكلمات وافهم استخدامها. المرحلة التالية تفتح عند إتقان 50 كلمة.';$('#streakNumber').textContent=saved.streak||0;const dots=$('#weekDots');dots.innerHTML='';for(let i=0;i<7;i++){const d=document.createElement('i');if(i<(saved.streak||0)%8)d.className='active';dots.append(d)}}
+document.querySelectorAll('.filter').forEach(b=>b.onclick=()=>{document.querySelectorAll('.filter').forEach(x=>x.classList.remove('active'));b.classList.add('active');render(b.dataset.filter)});
+$('#themeToggle').onclick=()=>{document.body.classList.toggle('dark');localStorage.setItem('boxar-theme',document.body.classList.contains('dark')?'dark':'light')};if(localStorage.getItem('boxar-theme')==='dark')document.body.classList.add('dark');
+const modal=$('#loginModal');$('#loginBtn').onclick=()=>{modal.classList.remove('hidden');if(user)$('#nameInput').value=user.name};$('#closeModal').onclick=()=>modal.classList.add('hidden');$('#saveUser').onclick=()=>{const name=$('#nameInput').value.trim();if(!name)return alert('اكتب اسمك أولًا');user={name,email:$('#emailInput').value};save();$('#loginBtn').textContent=`أهلًا ${name}`;modal.classList.add('hidden')};if(user)$('#loginBtn').textContent=`أهلًا ${user.name}`;
+let quizWord=words.find(w=>w.word==='print');function quiz(){const answers=[quizWord.ar,'إنشاء ملف','تكرار الكود'].sort(()=>Math.random()-.5);$('#quizAnswers').innerHTML=answers.map(a=>`<button class="answer">${a}</button>`).join('');document.querySelectorAll('.answer').forEach(b=>b.onclick=()=>{$('#quizFeedback').textContent=b.textContent===quizWord.ar?'إجابة صحيحة ✓':'حاول مرة أخرى، راجع بطاقة الكلمة.';$('#quizFeedback').style.color=b.textContent===quizWord.ar?'#c9f36a':'#ff9b9b'})}quiz();render();
